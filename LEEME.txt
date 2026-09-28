@@ -1,0 +1,62 @@
+========================================
+  SPORTS MANAGER - Version sin Node.js
+========================================
+
+COMO ABRIRLO
+------------
+1. Haz doble clic en "index.html"
+   (o en "Abrir Sports Manager.bat")
+
+2. Se abre en tu navegador (Chrome, Edge,
+   Firefox, etc.) SIN instalar Node.js.
+
+
+CARGAR TU datos.json EXISTENTE
+------------------------------
+1. Copia tu archivo datos.json a la misma
+   carpeta donde esta index.html
+   (o dejalo donde ya lo tenias).
+
+2. Abre la aplicacion y ve al menu
+   "Respaldo de datos".
+
+3. Pulsa "Cargar datos.json" y elige tu
+   archivo. Veras todos tus torneos.
+
+OPCION AVANZADA (Chrome o Edge):
+- Pulsa "Vincular carpeta" y elige la
+  carpeta del programa.
+- Si hay datos.json, se carga solo.
+- Cada vez que guardes cambios, tambien
+  se actualiza el datos.json de esa carpeta.
+
+
+GUARDAR datos.json DE NUEVO
+---------------------------
+- "Guardar como datos.json" descarga el
+  archivo para que lo pongas en la carpeta.
+- Si vinculaste la carpeta (Chrome/Edge),
+  se escribe solo al guardar.
+
+
+DATOS EN EL NAVEGADOR
+---------------------
+Ademas del archivo, una copia se guarda
+en el almacenamiento del navegador para
+que no pierdas nada si no usas el JSON.
+
+
+REQUISITOS
+----------
+- Navegador moderno
+- Internet la primera vez (librerias CDN:
+  Chart.js, jsPDF, html2canvas)
+
+
+IMPORTANTE
+----------
+El navegador, por seguridad, NO puede leer
+archivos de la carpeta sin que tu los
+elijas o vincules la carpeta. Por eso hay
+que usar "Cargar datos.json" o "Vincular
+carpeta" una vez.
