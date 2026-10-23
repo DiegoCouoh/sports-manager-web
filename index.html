@@ -628,6 +628,47 @@
             color: #e8e8e8;
         }
 
+        /* Controles solo en pantalla (no salen en exportación de imagen) */
+        body.exportando-tabla .solo-vista-pc {
+            display: none !important;
+        }
+        .pts-extra-badge {
+            display: inline-block;
+            margin-left: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #f0c14b;
+            background: rgba(240,193,75,0.12);
+            border: 1px solid rgba(240,193,75,0.35);
+            border-radius: 999px;
+            padding: 1px 7px;
+            vertical-align: middle;
+        }
+        .pts-ctrl {
+            display: inline-flex;
+            gap: 4px;
+            align-items: center;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        .pts-ctrl button {
+            border: none;
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 1;
+            background: #252b35;
+            color: #e8e8e8;
+        }
+        .pts-ctrl button:hover { background: #343b47; }
+        .pts-ctrl button.plus { background: #173a27; color: #72d99b; }
+        .pts-ctrl button.plus:hover { background: #1f4d34; }
+        .pts-ctrl button.minus { background: #54242a; color: #ffb4b4; }
+        .pts-ctrl button.minus:hover { background: #713139; }
+
         .calendar-match {
             background: #252b35;
             border-left: 3px solid #287ed6;
@@ -3373,7 +3414,11 @@
                         <button class="action-button success" onclick="exportarTablaImagen()">📸 Exportar tabla (imagen)</button>
                         <button class="action-button active" id="btnEditarTablaManual" onclick="abrirModalEditarTablaManual()">✏️ Editar tabla manualmente</button>
                         <button class="action-button" onclick="limpiarOverridesTabla()" title="Vuelve a calcular solo desde partidos">↺ Recalcular desde partidos</button>
+                        <button class="action-button" onclick="limpiarPuntosExtraTabla()" title="Quita solo los puntos extra (+/−)">↺ Quitar puntos extra</button>
                     </div>
+                    <p class="subtitle solo-vista-pc" style="margin-top:-8px;margin-bottom:14px;font-size:12px;">
+                        Usa <strong>+</strong> / <strong>−</strong> en la columna PTS para sumar o quitar 1 punto extra por equipo. Al exportar, solo se ve el total (sin botones).
+                    </p>
                     <p id="avisoTablaManual" class="subtitle" style="display:none;margin-top:-8px;margin-bottom:14px;color:#f0c14b;">
                         ⚠ Tabla con valores manuales (no se sobrescriben al guardar partidos). Usa «Recalcular desde partidos» para volver al cálculo automático.
                     </p>
@@ -4680,7 +4725,7 @@
         </div>
         <div class="modal-footer">
             <button class="action-button" onclick="cerrarModal('modalNegociacionIA')">Cerrar</button>
-            <button class="action-button success" onclick="exportarConversacionNegociacion()">📸 Exportar conversación</button>
+            <button class="action-button success" onclick="expor9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8()">📸 Exportar conversación</button>
             <button class="action-button active" id="btnNegEnviarOferta" onclick="enviarMensajeNegociacionChat()">Enviar mensaje</button>
         </div>
     </div>
@@ -6128,7 +6173,7 @@ function comprimirDataURLImagen(dataUrl, maxSide, quality) {
     });
 }
 
-async function leerArchivoComoDataURLComprimido(archivo, maxSide, quality) {
+async function leer9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8(archivo, maxSide, quality) {
     const dataUrl = await new Promise((resolve, reject) => {
         const lector = new FileReader();
         lector.onload = (e) => resolve(e.target.result);
@@ -7760,7 +7805,7 @@ function mostrarTorneoSeccion(id) {
     if (id === "rendimientoTorneo") {
         const btnR = document.getElementById("btnRendimiento");
         if (btnR) btnR.classList.add("active");
-        if (typeof renderizarRendimientoTorneo === "function") renderizarRendimientoTorneo();
+        if (typeof r9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8 === "function") r9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8();
     }
 
     if (id === "detalleEquipoSeccion" || id === "detalleJugadorSeccion") {
@@ -7826,7 +7871,12 @@ function exportarTablaImagen() {
         alert("No se encontró la tabla.");
         return;
     }
-    exportarElementoAImagen(el, "tabla_posiciones.png");
+    // Ocultar botones +/- y badges de puntos extra; el total ya incluye los puntos
+    document.body.classList.add("exportando-tabla");
+    const done = function () {
+        document.body.classList.remove("exportando-tabla");
+    };
+    exportarElementoAImagen(el, "tabla_posiciones.png", done);
 }
 
 
@@ -10881,7 +10931,7 @@ async function guardarEdicionPartido() {
         if (gv) gv.value = partidoActual.golesVisitante;
     }
 
-    actualizarEstadisticasEquiposYJugadores();
+    actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8();
 
 
     const guardado =
@@ -11154,7 +11204,7 @@ function aplicarAlineacionIndebida(partido, sancionadosIds) {
    ESTADÍSTICAS DE EQUIPOS Y JUGADORES
 ========================================================= */
 
-function actualizarEstadisticasEquiposYJugadores() {
+function actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8() {
 
     if (!torneoActual) {
         return;
@@ -11609,8 +11659,8 @@ function abrirModalEditarTablaManual() {
         return;
     }
     if (typeof bloquearSiTorneoFinalizado === "function" && bloquearSiTorneoFinalizado()) return;
-    if (typeof actualizarEstadisticasEquiposYJugadores === "function") {
-        actualizarEstadisticasEquiposYJugadores();
+    if (typeof actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8 === "function") {
+        actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8();
     }
 
     const body = document.getElementById("tablaEdicionManualBody");
@@ -11691,8 +11741,8 @@ async function guardarTablaManual() {
 
     cerrarModal("modalEditarTablaManual");
     if (typeof actualizarTablaTorneo === "function") actualizarTablaTorneo();
-    if (typeof renderizarGraficosReportes === "function") {
-        try { renderizarGraficosReportes(); } catch (e) {}
+    if (typeof r9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8 === "function") {
+        try { r9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8(); } catch (e) {}
     }
     actualizarAvisosOverrides();
     alert("Tabla actualizada con valores manuales.");
@@ -11717,8 +11767,8 @@ async function limpiarOverridesTabla() {
         return;
     }
     if (typeof actualizarTablaTorneo === "function") actualizarTablaTorneo();
-    if (typeof renderizarGraficosReportes === "function") {
-        try { renderizarGraficosReportes(); } catch (e) {}
+    if (typeof r9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8 === "function") {
+        try { r9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8(); } catch (e) {}
     }
     actualizarAvisosOverrides();
     alert("Tabla recalculada desde partidos.");
@@ -11730,8 +11780,8 @@ function abrirModalEditarStatsJugadores() {
         return;
     }
     if (typeof bloquearSiTorneoFinalizado === "function" && bloquearSiTorneoFinalizado()) return;
-    if (typeof actualizarEstadisticasEquiposYJugadores === "function") {
-        actualizarEstadisticasEquiposYJugadores();
+    if (typeof actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8 === "function") {
+        actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8();
     }
 
     const body = document.getElementById("tablaEdicionStatsJugadoresBody");
@@ -11830,8 +11880,8 @@ async function guardarStatsJugadoresManual() {
     cerrarModal("modalEditarStatsJugadores");
     if (typeof actualizarEstadisticasIndividuales === "function") actualizarEstadisticasIndividuales();
     if (typeof actualizarTablaTorneo === "function") actualizarTablaTorneo();
-    if (typeof renderizarGraficosReportes === "function") {
-        try { renderizarGraficosReportes(); } catch (e) {}
+    if (typeof r9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8 === "function") {
+        try { r9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8(); } catch (e) {}
     }
     actualizarAvisosOverrides();
     alert("Estadísticas de jugadores actualizadas.");
@@ -11862,8 +11912,8 @@ async function limpiarOverridesJugadores() {
         return;
     }
     if (typeof actualizarEstadisticasIndividuales === "function") actualizarEstadisticasIndividuales();
-    if (typeof renderizarGraficosReportes === "function") {
-        try { renderizarGraficosReportes(); } catch (e) {}
+    if (typeof r9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8 === "function") {
+        try { r9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8(); } catch (e) {}
     }
     actualizarAvisosOverrides();
     alert("Estadísticas de jugadores recalculadas desde partidos.");
@@ -11909,7 +11959,7 @@ function compararClasificacionEquipos(a, b) {
 
 function obtenerEquiposOrdenadosTabla() {
     if (!torneoActual || !Array.isArray(torneoActual.equipos)) return [];
-    actualizarEstadisticasEquiposYJugadores();
+    actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8();
     const lista = [...torneoActual.equipos];
     if (!hayResultadosParaClasificacion(lista)) {
         return lista.sort(compararNombreEquipoAZ);
@@ -11918,10 +11968,86 @@ function obtenerEquiposOrdenadosTabla() {
 }
 
 
+
+/** Puntos extra voluntarios por equipo (solo suman al total visible / exportado) */
+function getMapaPuntosExtra() {
+    if (!torneoActual) return {};
+    if (!torneoActual.puntosExtra || typeof torneoActual.puntosExtra !== "object") {
+        torneoActual.puntosExtra = {};
+    }
+    return torneoActual.puntosExtra;
+}
+
+function getPuntosExtraEquipo(equipoId) {
+    const map = getMapaPuntosExtra();
+    return Math.max(0, Number(map[String(equipoId)]) || 0);
+}
+
+function puntosBaseEquipoStats(st, equipo) {
+    if (st && st.puntos != null) return Number(st.puntos) || 0;
+    return Number(equipo && equipo.puntos) || 0;
+}
+
+function puntosTotalesEquipo(equipo, st) {
+    return puntosBaseEquipoStats(st, equipo) + getPuntosExtraEquipo(equipo && equipo.id);
+}
+
+async function ajustarPuntosExtraEquipo(equipoId, delta) {
+    if (!torneoActual) return;
+    if (typeof bloquearSiTorneoFinalizado === "function" && bloquearSiTorneoFinalizado()) return;
+    const map = getMapaPuntosExtra();
+    const key = String(equipoId);
+    let n = Math.max(0, Number(map[key]) || 0) + (Number(delta) || 0);
+    if (n < 0) n = 0;
+    if (n === 0) delete map[key];
+    else map[key] = n;
+    if (typeof guardarBaseDatos === "function") await guardarBaseDatos();
+    if (typeof actualizarTablaTorneo === "function") actualizarTablaTorneo();
+}
+
+async function limpiarPuntosExtraTabla() {
+    if (!torneoActual) return;
+    if (typeof bloquearSiTorneoFinalizado === "function" && bloquearSiTorneoFinalizado()) return;
+    const map = getMapaPuntosExtra();
+    const keys = Object.keys(map);
+    if (!keys.length) {
+        alert("No hay puntos extra asignados.");
+        return;
+    }
+    if (!confirm("¿Quitar todos los puntos extra de la tabla?")) return;
+    torneoActual.puntosExtra = {};
+    if (typeof guardarBaseDatos === "function") await guardarBaseDatos();
+    if (typeof actualizarTablaTorneo === "function") actualizarTablaTorneo();
+}
+
+function hayPuntosExtraTabla() {
+    if (!torneoActual || !torneoActual.puntosExtra) return false;
+    return Object.keys(torneoActual.puntosExtra).some(function (k) {
+        return (Number(torneoActual.puntosExtra[k]) || 0) > 0;
+    });
+}
+
+function compararClasificacionConExtra(a, b, statsMap) {
+    const stA = statsMap ? (statsMap[String(a.id)] || {}) : a;
+    const stB = statsMap ? (statsMap[String(b.id)] || {}) : b;
+    const ptsA = puntosTotalesEquipo(a, stA);
+    const ptsB = puntosTotalesEquipo(b, stB);
+    if (ptsB !== ptsA) return ptsB - ptsA;
+    if ((stB.ganados || 0) !== (stA.ganados || 0)) return (stB.ganados || 0) - (stA.ganados || 0);
+    if ((stB.diferenciaGoles || 0) !== (stA.diferenciaGoles || 0)) return (stB.diferenciaGoles || 0) - (stA.diferenciaGoles || 0);
+    const fpA = (stA.amarillasEquipo || 0) + 3 * (stA.rojasEquipo || 0);
+    const fpB = (stB.amarillasEquipo || 0) + 3 * (stB.rojasEquipo || 0);
+    if (fpA !== fpB) return fpA - fpB;
+    if ((stA.rojasEquipo || 0) !== (stB.rojasEquipo || 0)) return (stA.rojasEquipo || 0) - (stB.rojasEquipo || 0);
+    if ((stA.amarillasEquipo || 0) !== (stB.amarillasEquipo || 0)) return (stA.amarillasEquipo || 0) - (stB.amarillasEquipo || 0);
+    return String(a.nombre || "").localeCompare(String(b.nombre || ""), "es", { sensitivity: "base" });
+}
+
+
 function actualizarTablaTorneo() {
     if (!torneoActual) return;
 
-    actualizarEstadisticasEquiposYJugadores();
+    actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8();
 
     const tabla = document.getElementById("tablaEquipos");
     const tablaVacia = document.getElementById("tablaVacia");
@@ -11954,13 +12080,13 @@ function actualizarTablaTorneo() {
         if (!hayRes) {
             equiposBase = [...equiposBase].sort(compararNombreEquipoAZ);
         } else {
-            equiposBase = ordenarEquiposPorStats(equiposBase, statsMap);
+            equiposBase = [...equiposBase].sort(function (a, b) { return compararClasificacionConExtra(a, b, statsMap); });
         }
     } else {
         if (!hayResultadosParaClasificacion(equiposBase)) {
             equiposBase.sort(compararNombreEquipoAZ);
         } else {
-            equiposBase.sort(compararClasificacionEquipos);
+            equiposBase.sort(function (a, b) { return compararClasificacionConExtra(a, b, null); });
         }
     }
 
@@ -11978,6 +12104,17 @@ function actualizarTablaTorneo() {
         const badgeDiv = fifa && vista === "general" && equipo.division
             ? ' <span style="font-size:10px;color:#9298a3;">(' + (equipo.division === "primera" ? "1ª" : "2ª") + ")</span>"
             : "";
+        const ptsBase = puntosBaseEquipoStats(st, equipo);
+        const ptsExtra = getPuntosExtraEquipo(equipo.id);
+        const ptsTot = ptsBase + ptsExtra;
+        const badgeExtra = ptsExtra > 0
+            ? ('<span class="pts-extra-badge solo-vista-pc" title="Puntos extra">+' + ptsExtra + '</span>')
+            : '';
+        const eid = String(equipo.id).replace(/'/g, "\\'");
+        const ctrl = '<span class="pts-ctrl solo-vista-pc">' +
+            '<button type="button" class="plus" title="Sumar 1 punto" onclick="event.stopPropagation();ajustarPuntosExtraEquipo(\'' + eid + '\', 1)">+</button>' +
+            '<button type="button" class="minus" title="Quitar 1 punto extra" onclick="event.stopPropagation();ajustarPuntosExtraEquipo(\'' + eid + '\', -1)">−</button>' +
+            '</span>';
         fila.innerHTML =
             "<td>" + (indice + 1) + "</td>" +
             "<td><div class=\"tabla-equipo-celda\">" + escudo + "<span>" + escaparHTML(equipo.nombre) + badgeDiv + "</span></div></td>" +
@@ -11988,7 +12125,7 @@ function actualizarTablaTorneo() {
             "<td>" + (st.golesFavor || 0) + "</td>" +
             "<td>" + (st.golesContra || 0) + "</td>" +
             "<td style=\"color:" + dgColor + ";font-weight:bold;\">" + (dg > 0 ? "+" : "") + dg + "</td>" +
-            "<td><strong>" + (st.puntos || 0) + "</strong></td>";
+            "<td><strong>" + ptsTot + "</strong>" + badgeExtra + ctrl + "</td>";
         cuerpo.appendChild(fila);
     });
 
@@ -12000,7 +12137,7 @@ function actualizarTablaTorneo() {
 function actualizarEstadisticasIndividuales(soloTop10 = false) {
     if (!torneoActual) return;
 
-    actualizarEstadisticasEquiposYJugadores();
+    actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8();
 
     // === Goleadores de campo (incluye jugadores temporales de partidos) ===
     const goleadores = [];
@@ -12392,7 +12529,7 @@ function abrirDetalleEquipo(equipoId) {
     const equipo = obtenerEquipo(equipoId);
     if (!equipo) return;
 
-    actualizarEstadisticasEquiposYJugadores();
+    actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8();
 
     const escudoSrc = equipo.imagen || "";
     const escudo = escudoSrc
@@ -12641,7 +12778,7 @@ function abrirDetalleJugador(jugadorId) {
         equipoActualId = equipo.id;
     }
 
-    actualizarEstadisticasEquiposYJugadores();
+    actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8();
 
     const foto = jugador.foto
         ? `<img class="equipo-detalles-escudo" style="border-radius:50%; width:90px; height:90px; object-fit:cover;" src="${jugador.foto}">`
@@ -13116,7 +13253,7 @@ async function guardarEdicionEquipo() {
 
     if (archivo) {
         try {
-            equipo.imagen = await leerArchivoComoDataURLComprimido(archivo, 700, 0.8);
+            equipo.imagen = await leer9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8(archivo, 700, 0.8);
         } catch (err) {
             console.error(err);
             alert("Error al procesar la imagen del equipo.");
@@ -13787,7 +13924,7 @@ function mostrarNegTyping(show) {
     }
 }
 
-function exportarConversacionNegociacion() {
+function expor9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8() {
     const chat = document.getElementById("negChatLog");
     if (!chat) {
         alert("No hay conversación.");
@@ -13846,7 +13983,7 @@ function getIaMem(equipoId) {
 }
 
 /** Solo jugadores de MI plantilla (comprador) */
-function parsearPropuestaNegociacion(texto, comprador) {
+function par9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8(texto, comprador) {
     const raw = String(texto || "");
     const t = raw.toLowerCase();
     const out = {
@@ -14157,7 +14294,7 @@ async function enviarMensajeNegociacionChat() {
     }
     const comp = negCtx.equipoComprador;
     asegurarPresupuestoEquipo(comp);
-    const propuesta = parsearPropuestaNegociacion(texto, comp);
+    const propuesta = par9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8(texto, comp);
 
     if ((propuesta.tipo === "compra" || propuesta.tipo === "intercambio") && propuesta.oferta > comp.presupuesto) {
         appendNegChat("tu", texto);
@@ -14199,7 +14336,7 @@ async function enviarMensajeNegociacionChat() {
     }
 
     if (negCtx.contraofertas >= 3 && !decision.acepta) {
-        mostrarAccionesTrasTerceraContra();
+        mostr9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8();
         if (btn) btn.disabled = true;
         return;
     }
@@ -14207,17 +14344,17 @@ async function enviarMensajeNegociacionChat() {
     if (btn) btn.disabled = false;
 }
 
-function mostrarAccionesTrasTerceraContra() {
+function mostr9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8() {
     const box = document.getElementById("negChatAcciones");
     if (!box) return;
     box.style.display = "flex";
     box.innerHTML =
-        '<button type="button" class="action-button danger" onclick="terminarNegociacionSinTrato()">Terminar negociación</button>' +
+        '<button type="button" class="action-button danger" onclick="ter9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8()">Terminar negociación</button>' +
         '<button type="button" class="action-button active" onclick="seguirPensandoNegociacion()">Seguir pensando (guardar nota)</button>';
     appendNegChat("ia", "Llevamos tres contraofertas. ¿Cerramos la mesa o dejan la propuesta en estudio?");
 }
 
-async function terminarNegociacionSinTrato() {
+async function ter9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8() {
     if (!negCtx) return;
     negCtx.cerrada = true;
     negCtx.resultado = "sin_trato";
@@ -15080,11 +15217,11 @@ function renderizarPalmares() {
 }
 
 
-function renderizarRendimientoTorneo() {
+function r9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8() {
     if (!torneoActual) return;
     // refrescar stats del torneo actual
-    if (typeof actualizarEstadisticasEquiposYJugadores === "function") {
-        actualizarEstadisticasEquiposYJugadores();
+    if (typeof actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8 === "function") {
+        actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8();
     }
     const cont = document.getElementById("listaRendimientoTorneo");
     const ley = document.getElementById("leyendaRendimientoTorneo");
@@ -15142,8 +15279,8 @@ async function exportarRendimientoPDF() {
         return;
     }
 
-    if (typeof actualizarEstadisticasEquiposYJugadores === "function") {
-        actualizarEstadisticasEquiposYJugadores();
+    if (typeof actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8 === "function") {
+        actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8();
     }
 
     const ranking = typeof recolectarStatsJugadores === "function"
@@ -15628,7 +15765,7 @@ async function registrarNuevoEquipo() {
 
     if (archivo) {
         try {
-            equipo.imagen = await leerArchivoComoDataURLComprimido(archivo, 700, 0.8);
+            equipo.imagen = await leer9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8(archivo, 700, 0.8);
         } catch (err) {
             console.error(err);
             alert("Error al procesar la imagen del equipo.");
@@ -16958,7 +17095,7 @@ function generarPartidosRoundRobin(equiposLista, prefijoLabel, division, opts) {
 }
 
 
-function abrirEdicionPartidoDesdeJornada(id) {
+function abr9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8(id) {
     if (!torneoActual || !Array.isArray(torneoActual.partidos)) return;
     // Abre la ficha del partido (Editar información / Editar resultado)
     abrirPartido(id);
@@ -17072,7 +17209,7 @@ function renderizarPanelJornadas() {
                 metaTxt = [fechaFmt, horaFmt].filter(Boolean).join(" · ");
             }
             return `
-                <div class="jornada-match-card" onclick="event.stopPropagation(); abrirEdicionPartidoDesdeJornada('${pid}')">
+                <div class="jornada-match-card" onclick="event.stopPropagation(); abr9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8('${pid}')">
                     <div class="jornada-match-teams">
                         <div class="jornada-team-block">${escL}<span>${escaparHTML(loc)}</span></div>
                         <div class="jornada-vs">VS</div>
@@ -17512,8 +17649,8 @@ async function generarBracket() {
     if (!torneoActual) return;
 
     // Actualizar tabla antes de tomar clasificados
-    if (typeof actualizarEstadisticasEquiposYJugadores === "function") {
-        actualizarEstadisticasEquiposYJugadores();
+    if (typeof actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8 === "function") {
+        actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8();
     }
 
     const n = Number(document.getElementById("bracketsCantidad").value) || 4;
@@ -18313,12 +18450,12 @@ async function guardarResultadoBracket() {
     }
 
     // Siempre sincronizar (FIFA y liga) para mantener formato de partidos
-    if (typeof sincronizarPartidosCopaDesdeBracket === "function") {
-        sincronizarPartidosCopaDesdeBracket(rondaIdx, partidoIdx);
+    if (typeof sincr9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8 === "function") {
+        sincr9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8(rondaIdx, partidoIdx);
     }
 
-    if (typeof actualizarEstadisticasEquiposYJugadores === "function") {
-        actualizarEstadisticasEquiposYJugadores();
+    if (typeof actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8 === "function") {
+        actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8();
     }
 
     await guardarBaseDatos();
@@ -18333,7 +18470,7 @@ function abrirDetalleDesdeBracketModal() {
 }
 
 
-function sincronizarPartidosCopaDesdeBracket(rondaIdx, partidoIdx) {
+function sincr9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8(rondaIdx, partidoIdx) {
 
     if (!torneoActual || !torneoActual.bracket) return;
     const ronda = torneoActual.bracket.rondas[rondaIdx];
@@ -18412,14 +18549,14 @@ let chartFairplay = null;
 let chartPorteros = null;
 
 function inicializarReportes() {
-    actualizarEstadisticasEquiposYJugadores();
+    actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8();
     actualizarEstadisticasIndividuales();
     llenarSelectsComparador();
-    renderizarGraficosReportes();
+    r9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8();
 }
 
 
-function renderizarGraficosReportes() {
+function r9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8() {
     if (!torneoActual || typeof Chart === "undefined") return;
 
     // Goleadores
@@ -18600,7 +18737,7 @@ function exportarTablaPDF() {
         alert("jsPDF no está disponible.");
         return;
     }
-    if (typeof actualizarEstadisticasEquiposYJugadores === "function") actualizarEstadisticasEquiposYJugadores();
+    if (typeof actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8 === "function") actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8();
     const equipos = obtenerEquiposOrdenadosTabla();
     const doc = crearPDFBase("Tabla de posiciones");
     const body = equipos.map((e, i) => [
@@ -18640,7 +18777,7 @@ function exportarEstadisticasPDF() {
         alert("jsPDF no está disponible.");
         return;
     }
-    if (typeof actualizarEstadisticasEquiposYJugadores === "function") actualizarEstadisticasEquiposYJugadores();
+    if (typeof actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8 === "function") actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8();
     actualizarEstadisticasIndividuales();
     const doc = crearPDFBase("Estadísticas individuales");
 
@@ -18740,8 +18877,8 @@ function exportarReportesCompletoPDF() {
         return;
     }
 
-    if (typeof actualizarEstadisticasEquiposYJugadores === "function") {
-        actualizarEstadisticasEquiposYJugadores();
+    if (typeof actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8 === "function") {
+        actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8();
     }
     if (typeof actualizarEstadisticasIndividuales === "function") {
         actualizarEstadisticasIndividuales();
@@ -19155,7 +19292,7 @@ function exportarComparadorPDF() {
         return;
     }
 
-    actualizarEstadisticasEquiposYJugadores();
+    actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8();
 
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
@@ -19480,7 +19617,7 @@ function renderBarraComparacion(nombreA, nombreB, pctA, pctB) {
 
 function ejecutarComparador() {
     if (!torneoActual) return;
-    actualizarEstadisticasEquiposYJugadores();
+    actualizar9yMnTm4NSzvG9rrwjM2ec8xZgh1cafXH8();
     const tipo = document.getElementById("comparadorTipo").value;
     const valA = document.getElementById("comparadorA").value;
     const valB = document.getElementById("comparadorB").value;
