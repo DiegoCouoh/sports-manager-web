@@ -11,6 +11,13 @@
     >
 
     <title>Sports Manager</title>
+    <meta name="theme-color" content="#101216">
+    <meta name="description" content="Sports Manager - Torneos, inscripciones por WhatsApp, capitanes y jugadores en tiempo real.">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="icon-192.png">
 
     <!-- Librería html2canvas para exportar elementos a imagen -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -2514,7 +2521,41 @@
         .insc-estado.aprobada { background:#1a2e22; color:#72d99b; border:1px solid #255a3d; }
         .insc-estado.rechazada { background:#3a1a1a; color:#fca5a5; border:1px solid #8b2e2e; }
 
-    </style>
+    
+/* ===== SPORTS MANAGER v2 - MOVIL + PWA + ROLES + WHATSAPP (sin tocar tu logica original) ===== */
+.sm-rolebar{position:fixed;top:42px;left:0;right:0;z-index:1500;background:#101a2a;border-bottom:1px solid #26344a;display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:8px 14px;font-size:13px}
+.sm-rolebar b{color:#fff}.sm-rolebar .sm-pill{background:#252b35;border:1px solid #3a4352;border-radius:999px;padding:4px 10px;font-weight:700}
+.sm-rolebar .sm-pill.org{background:#1e3a5f;border-color:#2f5f9e}.sm-rolebar .sm-pill.cap{background:#2a2305;border-color:#c9a227;color:#ffd700}.sm-rolebar .sm-pill.jug{background:#1a2e22;border-color:#2e7d32;color:#72d99b}
+.sm-rolebar button{border:1px solid #3a4a5a;background:#22262e;color:#fff;padding:6px 12px;border-radius:8px;cursor:pointer;font-weight:700;font-size:12px}
+.sm-rolebar button.primary{background:#25D366;border-color:#1da851;color:#06281a}
+.sm-float-wa{position:fixed;right:16px;bottom:16px;z-index:1600;background:#25D366;color:#06281a;border:none;border-radius:999px;padding:14px 18px;font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.45);display:flex;gap:8px;align-items:center}
+.sm-card{background:#171a20;border:1px solid #292d35;border-radius:12px;padding:16px;margin:12px 0}
+.sm-card h3{margin:0 0 8px}.sm-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sm-input,.sm-select,.sm-textarea{width:100%;padding:12px;border-radius:8px;border:1px solid #343944;background:#101216;color:#e8e8e8;font-size:14px;margin:6px 0}
+.sm-btn{border:none;padding:12px 16px;border-radius:8px;background:#252b35;color:#fff;cursor:pointer;font-size:14px;font-weight:700}
+.sm-btn:hover{background:#343b47}.sm-btn.green{background:#25D366;color:#06281a}.sm-btn.blue{background:#287ed6}.sm-btn.gold{background:#c9a227;color:#1a1400}.sm-btn.red{background:#7a1f1f}.sm-btn:disabled{opacity:.5;cursor:not-allowed}
+.sm-notif{position:fixed;top:92px;right:14px;z-index:1700;width:360px;max-width:calc(100vw - 28px);background:#171a20;border:1px solid #292d35;border-radius:12px;padding:14px;display:none;box-shadow:0 16px 40px rgba(0,0,0,.5);max-height:70vh;overflow:auto}
+.sm-notif.open{display:block}.sm-notif-item{border-bottom:1px solid #292d35;padding:10px 0}
+.sm-modal{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1800;display:none;align-items:center;justify-content:center;padding:16px}
+.sm-modal.open{display:flex}.sm-modal-box{background:#171a20;border:1px solid #292d35;border-radius:14px;padding:20px;width:100%;max-width:480px;max-height:90vh;overflow:auto}
+.sm-badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:800;background:#252b35;border:1px solid #3a4352}
+.sm-badge.ok{background:#1a2e22;color:#72d99b;border-color:#2e7d32}.sm-badge.warn{background:#2a2305;color:#ffd700;border-color:#c9a227}.sm-badge.bad{background:#3a1a1a;color:#fca5a5;border-color:#8b2e2e}
+.sm-team-row{display:flex;justify-content:space-between;gap:10px;align-items:center;background:#101216;border:1px solid #292d35;border-radius:10px;padding:12px;margin:8px 0;flex-wrap:wrap}
+@media (max-width:820px){
+  .sm-rolebar{top:42px;padding:8px 10px}
+  .sm-grid{grid-template-columns:1fr}
+  .sidebar{position:fixed !important;left:0;top:42px;bottom:0;z-index:1400;width:280px !important;max-width:86vw;transform:translateX(-105%);transition:transform .22s ease;box-shadow:20px 0 40px rgba(0,0,0,.5)}
+  body.sm-menu-abierto .sidebar{transform:none !important;opacity:1 !important;pointer-events:auto !important;padding:25px 15px !important}
+  body.sidebar-collapsed .content{padding-left:14px}
+  .content{padding:18px 14px 110px !important}
+  h1{font-size:26px !important}
+  .button-container{flex-direction:column}.button-container .action-button,.sm-btn{width:100%}
+  .sm-float-wa{right:12px;bottom:12px;padding:12px 14px;font-size:13px}
+  .sm-notif{top:110px}
+}
+@media (max-width:480px){ .content{padding:14px 10px 110px !important} }
+
+</style>
 
 </head>
 
@@ -18782,6 +18823,201 @@ function exportarActaPartidoPDF() {
 
 </script>
 
+
+<script>if("serviceWorker" in navigator && location.protocol!=="file:"){window.addEventListener("load",function(){navigator.serviceWorker.register("./sw.js").catch(function(){});});}</script>
+<!-- ===== SPORTS MANAGER v2 ===== -->
+<script>
+/* SPORTS MANAGER v2 - Roles + WhatsApp + Invitaciones + Tiempo real (capa encima de tu index original, sin borrar tu logica) */
+(function(){
+"use strict";
+try{
+var LS_SESION='sports_roles_v2', LS_INV='sports_invitaciones_jugador_v1', LS_NOTIF='sports_notificaciones_v1', LS_LIBRES='sports_agentes_libres_v1';
+function leer(k,def){ try{var r=localStorage.getItem(k); return r?JSON.parse(r):def;}catch(e){return def;} }
+function guardar(k,v){ try{localStorage.setItem(k,JSON.stringify(v));}catch(e){} }
+function esc(s){ s=String(s==null?'':s); var d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+function limpiarTel(v){ v=String(v||'').replace(/[^0-9]/g,''); if(v.length===10) v='52'+v; if(v.indexOf('00')===0) v=v.slice(2); return v; }
+function waLink(num,texto){ return 'https://wa.me/'+limpiarTel(num)+'?text='+encodeURIComponent(texto||''); }
+function getSesion(){ return leer(LS_SESION,{rol:'visitante',nombre:'',whatsapp:'',torneoId:'',equipoId:''}); }
+function setSesion(s){ guardar(LS_SESION,s); renderRoleBar(); renderMiEquipo(); }
+function getTorneos(){ try{ if(typeof torneos!=='undefined' && Array.isArray(torneos)) return torneos; }catch(e){} return window.torneos||[]; }
+function getTorneo(id){ return getTorneos().find(function(t){return String(t.id)===String(id);}); }
+function getEquipo(tid,eid){ var t=getTorneo(tid); if(!t) return null; return (t.equipos||[]).find(function(e){return String(e.id)===String(eid);}); }
+function contar(eq){ return eq&&Array.isArray(eq.jugadores)?eq.jugadores.length:0; }
+function guardarBD(){ try{ if(typeof guardarBaseDatos==='function') guardarBaseDatos(); }catch(e){} try{ if(typeof marcarCambiosSinGuardar==='function') marcarCambiosSinGuardar(); }catch(e){} }
+function notificar(para,titulo,mensaje){ var l=leer(LS_NOTIF,[]); l.unshift({id:'notif_'+Date.now()+'_'+Math.floor(Math.random()*999),para:para||{},titulo:titulo,mensaje:mensaje,fecha:new Date().toISOString(),leida:false}); guardar(LS_NOTIF,l); renderRoleBar(); renderMiEquipo(); }
+function misNotifs(){ var s=getSesion(); return leer(LS_NOTIF,[]).filter(function(n){ if(!n.para) return false; if(s.rol==='organizador'&&n.para.rol==='organizador') return true; if(s.whatsapp&&n.para.whatsapp&&limpiarTel(n.para.whatsapp)===limpiarTel(s.whatsapp)) return true; if(s.nombre&&n.para.nombre&&String(n.para.nombre).toLowerCase()===String(s.nombre).toLowerCase()) return true; return false; }); }
+function whatsOrg(){ try{ if(typeof obtenerWhatsOrganizador==='function') return obtenerWhatsOrganizador(); }catch(e){} try{ return localStorage.getItem('sports_whats_organizador')||''; }catch(e){ return ''; } }
+
+/* ---------- DOM BASE ---------- */
+function crearBase(){
+  if(document.getElementById('smRoleBar')) return;
+  var bar=document.createElement('div'); bar.id='smRoleBar'; bar.className='sm-rolebar'; document.body.insertBefore(bar, document.body.children[1]||null);
+  var flot=document.createElement('button'); flot.id='smFloatWA'; flot.className='sm-float-wa'; flot.type='button'; flot.innerHTML='💬 Hablar con el Organizador <small>WhatsApp</small>'; flot.onclick=function(){ smHablarOrganizador('Hola, soy parte del torneo y quiero hablar contigo (Organizador).'); }; document.body.appendChild(flot);
+  var notif=document.createElement('div'); notif.id='smNotifPanel'; notif.className='sm-notif'; document.body.appendChild(notif);
+  var modal=document.createElement('div'); modal.id='smModalRol'; modal.className='sm-modal'; modal.innerHTML='<div class="sm-modal-box"><h2 style="margin-top:0;">👤 ¿Cómo entras hoy?</h2><p class="subtitle">Elige tu rol. No borra nada de tu app original, solo te muestra lo que te corresponde.</p><div class="form-group"><label>Tu nombre completo *</label><input id="smRolNombre" class="sm-input" placeholder="Ej: Diego Couoh"></div><div class="form-group"><label>Tu WhatsApp *</label><input id="smRolWhats" class="sm-input" type="tel" placeholder="Ej: 998 123 4567"></div><div class="form-group"><label>Rol</label><select id="smRolSelect" class="sm-select"><option value="visitante">👀 Visitante / Público</option><option value="capitan">🧢 Capitán (inscribe y maneja su equipo)</option><option value="jugador">⚽ Jugador / Agente libre</option><option value="organizador">👑 Organizador (todas las funciones)</option></select></div><p class="subtitle" style="font-size:12px;">Organizador: además usa tu botón original “Ingresar como organizador” para desbloquear torneos, reportes y respaldo. Capitán y Jugador entran con nombre + WhatsApp, sin contraseña.</p><div style="display:flex;gap:10px;flex-wrap:wrap;"><button class="sm-btn blue" onclick="smGuardarSesion()">Entrar</button><button class="sm-btn" onclick="smCerrarModalRol()">Cancelar</button></div></div>'; document.body.appendChild(modal);
+  // Seccion Mi Equipo dentro del contenido principal
+  var main=document.querySelector('main.content'); if(main){ var sec=document.createElement('section'); sec.id='miEquipo'; sec.className='page'; main.appendChild(sec); }
+  // Botones en el menu lateral
+  var menu=document.querySelector('.menu'); if(menu){
+    function mkBtn(id,txt,fn){ var b=document.createElement('button'); b.id=id; b.className='menu-button'; b.type='button'; b.textContent=txt; b.onclick=fn; menu.appendChild(b); return b; }
+    mkBtn('menuMiEquipo','🧢 Mi Equipo / Mi Rol',function(){ try{ if(typeof mostrarPagina==='function') mostrarPagina('miEquipo'); }catch(e){} renderMiEquipo(); window.scrollTo(0,0); });
+    mkBtn('menuInvitar','🔗 Invitar al público',function(){ try{ if(typeof mostrarPagina==='function') mostrarPagina('miEquipo'); }catch(e){} setTimeout(function(){ var el=document.getElementById('smInvitarBox'); if(el) el.scrollIntoView({behavior:'smooth'}); },150); });
+    mkBtn('menuLibres','🆓 Agentes libres',function(){ try{ if(typeof mostrarPagina==='function') mostrarPagina('miEquipo'); }catch(e){} setTimeout(function(){ var el=document.getElementById('smLibresBox'); if(el) el.scrollIntoView({behavior:'smooth'}); },150); });
+  }
+  // Hamburguesa movil: alternar clase
+  var toggle=document.getElementById('btnSidebarToggle'); if(toggle){ var orig=toggle.onclick; toggle.onclick=function(){ document.body.classList.toggle('sm-menu-abierto'); try{ if(typeof expandirSidebar==='function' && !document.body.classList.contains('sm-menu-abierto')) expandirSidebar(); }catch(e){} }; }
+  document.addEventListener('click',function(e){ if(window.innerWidth<=820 && document.body.classList.contains('sm-menu-abierto')){ var sb=document.getElementById('appSidebar'); if(sb && !sb.contains(e.target) && !(e.target.closest&&e.target.closest('#btnSidebarToggle'))) document.body.classList.remove('sm-menu-abierto'); } });
+}
+
+/* ---------- RENDER ---------- */
+function renderRoleBar(){
+  var bar=document.getElementById('smRoleBar'); if(!bar) return;
+  var s=getSesion(); var noLeidas=misNotifs().filter(function(n){return !n.leida;}).length;
+  var pill=s.rol==='organizador'?'👑 Organizador':s.rol==='capitan'?'🧢 Capitán':s.rol==='jugador'?'⚽ Jugador':'👀 Visitante';
+  var cls=s.rol==='organizador'?'org':s.rol==='capitan'?'cap':s.rol==='jugador'?'jug':'';
+  bar.innerHTML='<span class="sm-pill '+cls+'">'+pill+'</span>'+(s.nombre?'<b>'+esc(s.nombre)+'</b>':'<span>Entra con tu rol para ver tu equipo</span>')+'<span style="margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;"><button type="button" onclick="smToggleNotif()">🔔 Notificaciones '+(noLeidas?'<b style="color:#ffd700;">('+noLeidas+')</b>':'')+'</button><button type="button" class="primary" onclick="smHablarOrganizador(\'Hola, quiero hablar contigo (Organizador) sobre el torneo.\')">💬 Organizador</button><button type="button" onclick="smAbrirModalRol()">Cambiar rol</button>'+(s.nombre?'<button type="button" onclick="smSalirSesion()">Salir</button>':'')+'</span>';
+  var flot=document.getElementById('smFloatWA'); if(flot){ flot.style.display = whatsOrg()? 'flex':'flex'; }
+}
+function renderNotifPanel(){
+  var p=document.getElementById('smNotifPanel'); if(!p) return;
+  var list=misNotifs();
+  if(!list.length) p.innerHTML='<h3 style="margin:0;">🔔 Notificaciones</h3><p class="subtitle">Aún no tienes notificaciones.</p><button class="sm-btn" onclick="smToggleNotif()">Cerrar</button>';
+  else p.innerHTML='<h3 style="margin:0;">🔔 Notificaciones</h3>'+list.slice(0,20).map(function(n){ return '<div class="sm-notif-item"><b>'+esc(n.titulo)+'</b><div style="font-size:13px;opacity:.9;">'+esc(n.mensaje)+'</div><div style="font-size:11px;opacity:.6;">'+new Date(n.fecha).toLocaleString()+'</div>'+(n.leida?'':'<button class="sm-btn" style="padding:6px 10px;font-size:12px;margin-top:6px;" onclick="smMarcarNotifLeida(\''+n.id+'\')">Marcar leída</button>')+'</div>'; }).join('')+'<button class="sm-btn" style="margin-top:10px;" onclick="smToggleNotif()">Cerrar</button>';
+}
+function torneosOptions(selected){
+  return getTorneos().map(function(t){ return '<option value="'+esc(t.id)+'" '+(String(t.id)===String(selected)?'selected':'')+'>'+esc(t.nombre)+' — '+(t.inscripcionesAbiertas===false?'🔴 Cerradas':'🟢 Abiertas')+' ('+(t.equipos?t.equipos.length:0)+' equipos)</option>'; }).join('');
+}
+function equiposOptions(tid,selected){
+  var t=getTorneo(tid); if(!t) return '<option value="">Elige un torneo primero</option>';
+  return (t.equipos||[]).map(function(e){ return '<option value="'+esc(e.id)+'" '+(String(e.id)===String(selected)?'selected':'')+'>'+esc(e.nombre)+' — '+contar(e)+'/14 jugadores</option>'; }).join('')||'<option value="">Sin equipos todavía</option>';
+}
+function renderMiEquipo(){
+  var sec=document.getElementById('miEquipo'); if(!sec) return;
+  var s=getSesion();
+  var invitaciones=leer(LS_INV,[]);
+  var misInv=invitaciones.filter(function(inv){ return (s.whatsapp&&limpiarTel(inv.jugadorWhatsapp)===limpiarTel(s.whatsapp)) || (s.nombre&&String(inv.jugadorNombre).toLowerCase()===String(s.nombre).toLowerCase()); });
+  var libres=leer(LS_LIBRES,[]);
+  // Enlace de invitacion general
+  var base=location.origin+location.pathname; var torneoSel=s.torneoId||(getTorneos()[0]?getTorneos()[0].id:''); var enlaceInv=base+'?invitacion='+encodeURIComponent(torneoSel||'')+'#inscripciones';
+  var miTorneo=getTorneo(s.torneoId); var miEquipo=miTorneo?getEquipo(s.torneoId,s.equipoId):null;
+  // Si es capitan/jugador y no tiene equipo elegido, intentar autodetectar por nombre de capitan / jugador
+  if(!miEquipo && (s.rol==='capitan'||s.rol==='jugador') && s.nombre){
+    outer: for(var ti=0;ti<getTorneos().length;ti++){ var tt=getTorneos()[ti]; for(var ei=0;ei<(tt.equipos||[]).length;ei++){ var ee=tt.equipos[ei]; if(s.rol==='capitan'&&String(ee.capitan||'').toLowerCase()===String(s.nombre).toLowerCase()){ miTorneo=tt; miEquipo=ee; break outer; } if(s.rol==='jugador'&&(ee.jugadores||[]).some(function(j){return String(j.nombre||'').toLowerCase()===String(s.nombre).toLowerCase();})){ miTorneo=tt; miEquipo=ee; break outer; } } }
+  }
+  var html='';
+  html+='<h1>🧢 Mi Equipo / Mi Rol</h1><p class="subtitle">Aquí vive todo lo nuevo: rol, invitaciones, capitanes y agentes libres. Tu app original (Torneos, Inscripciones, Palmarés, Imágenes, Datos) sigue exactamente igual.</p>';
+  // Banner de invitacion por URL
+  var params=new URLSearchParams(location.search); var invParam=params.get('invitacion'); if(invParam){ var tInv=getTorneo(invParam); html+='<div class="sm-card" style="border-color:#25D366;"><h3>🔗 Te invitaron al torneo</h3><p>'+(tInv?('Te invitaron a <b>'+esc(tInv.nombre)+'</b>. Inscríbete abajo o entra como Capitán / Jugador.'): 'Te invitaron a un torneo. Elige uno abajo.')+'</p><div style="display:flex;gap:10px;flex-wrap:wrap;"><button class="sm-btn green" onclick="smIrAInscripciones()">📝 Ir a Inscripciones</button><button class="sm-btn" onclick="smAbrirModalRol()">👤 Entrar con mi rol</button></div></div>'; }
+  // Sesion actual
+  html+='<div class="sm-card"><h3>Tu sesión actual</h3><p><span class="sm-badge">'+esc(s.rol)+'</span> '+(s.nombre?'<b>'+esc(s.nombre)+'</b>':'Sin nombre todavía')+' '+(s.whatsapp?('• WhatsApp '+esc(s.whatsapp)):'')+'</p><div style="display:flex;gap:10px;flex-wrap:wrap;"><button class="sm-btn blue" onclick="smAbrirModalRol()">Cambiar rol / datos</button>'+(s.nombre?'<button class="sm-btn" onclick="smSalirSesion()">Salir de esta sesión</button>':'')+'</div><p class="subtitle" style="font-size:12px;margin-bottom:0;">Capitán: solo puede cambiar SU equipo. Jugador: solo puede ver / salir de SU equipo y postularse como agente libre. Organizador: puede todo (usa además tu login original de organizador).</p></div>';
+  // Invitar al publico - Organizador
+  html+='<div class="sm-card" id="smInvitarBox"><h3>🔗 Invitar al público (Organizador)</h3><p class="subtitle">Copia este enlace y compártelo en WhatsApp, Instagram, Facebook o donde quieras. Quien lo abra llega directo a Inscripciones de ese torneo.</p><label>Torneo a compartir</label><select id="smInvTorneo" class="sm-select" onchange="smCambiarTorneoInvitar(this.value)">'+torneosOptions(torneoSel)+'</select><input id="smEnlaceInv" class="sm-input" readonly value="'+esc(enlaceInv)+'"><div style="display:flex;gap:10px;flex-wrap:wrap;"><button class="sm-btn blue" onclick="smCopiarEnlaceInvitacion()">📋 Copiar enlace</button><button class="sm-btn green" onclick="smCompartirInvitacionWhatsApp()">💬 Compartir por WhatsApp</button><button class="sm-btn" onclick="smIrAInscripciones()">Ver Inscripciones</button></div><p class="subtitle" style="font-size:12px;">El enlace NO da permisos de organizador. Solo abre la app en modo visitante + inscripciones. Tú sigues siendo el único que aprueba.</p></div>';
+  // Invitaciones pendientes del jugador
+  html+='<div class="sm-card"><h3>📩 Mis invitaciones como jugador</h3>'+(misInv.length? misInv.map(function(inv){ return '<div class="sm-team-row"><div><b>'+esc(inv.equipoNombre)+'</b> — '+esc(inv.torneoNombre)+'<br><span style="font-size:13px;">Te invitó el capitán '+esc(inv.capitanNombre||'—')+' como '+(inv.posicion||'Jugador')+' • N° '+(inv.numero||'—')+' • Estado: <span class="sm-badge '+(inv.estado==='aceptada'?'ok':inv.estado==='rechazada'?'bad':'warn')+'">'+esc(inv.estado)+'</span></span></div><div style="display:flex;gap:8px;flex-wrap:wrap;">'+(inv.estado==='pendiente'?'<button class="sm-btn green" onclick="smConfirmarInvitacion(\''+inv.id+'\')">✅ Confirmar</button><button class="sm-btn red" onclick="smRechazarInvitacion(\''+inv.id+'\')">❌ Rechazar</button>':'<span style="font-size:13px;">'+(inv.estado==='aceptada'?'Ya estás en el equipo.':'No apareces en el equipo.')+'</span>')+'</div></div>'; }).join('') : '<p class="subtitle">No tienes invitaciones pendientes con tu nombre / WhatsApp. Si el capitán te registró, pídele que te reenvíe tu enlace de invitación por WhatsApp.</p>')+'</div>';
+  // Mi equipo actual
+  if(miEquipo && miTorneo){
+    html+='<div class="sm-card"><h3>⚽ Mi equipo: '+esc(miEquipo.nombre)+' <span class="sm-badge">'+esc(miTorneo.nombre)+'</span></h3><p>Capitán: <b>'+esc(miEquipo.capitan||'—')+'</b> • WhatsApp capitán: '+esc(miEquipo.telefono||'—')+' • Jugadores: <b>'+contar(miEquipo)+'/14</b> '+(contar(miEquipo)>=14?'<span class="sm-badge bad">Equipo lleno</span>':'<span class="sm-badge ok">Hay lugar</span>')+'</p>';
+    var jugHtml=(miEquipo.jugadores||[]).map(function(j){ return '<div class="sm-team-row"><div><b>'+esc(j.nombre)+'</b> — '+(j.posicion||'Jugador')+' • N° '+(j.numero==null?'—':j.numero)+'</div><div>'+(s.rol==='capitan'||s.rol==='organizador'?'<button class="sm-btn red" style="padding:8px 12px;font-size:13px;" onclick="smEliminarJugadorDeEquipo(\''+esc(miTorneo.id)+'\',\''+esc(miEquipo.id)+'\',\''+esc(j.id)+'\')">Quitar del equipo</button>':'')+'</div></div>'; }).join('');
+    html+='<div>'+(jugHtml||'<p class="subtitle">Sin jugadores todavía.</p>')+'</div>';
+    if(s.rol==='jugador'){ html+='<button class="sm-btn red" style="margin-top:10px;" onclick="smSalirDeEquipo(\''+esc(miTorneo.id)+'\',\''+esc(miEquipo.id)+'\')">🚪 Salirme de este equipo</button>'; }
+    if(s.rol==='capitan'||s.rol==='organizador'){
+      html+='<hr style="border-color:#292d35;"><h3>➕ Invitar / registrar jugador (Capitán)</h3><p class="subtitle">El capitán registra al jugador con estos datos. Más adelante me pasas los datos completos que quieres pedir y los agrego aquí sin cambiar lo demás. Por ahora: nombre, WhatsApp, posición y número.</p><div class="sm-grid"><div><label>Nombre del jugador *</label><input id="smJugNombre" class="sm-input" placeholder="Nombre completo"></div><div><label>WhatsApp del jugador *</label><input id="smJugWhats" class="sm-input" type="tel" placeholder="998 123 4567"></div><div><label>Posición</label><input id="smJugPos" class="sm-input" placeholder="Ej: Delantero, Portero"></div><div><label>Número</label><input id="smJugNum" class="sm-input" type="number" min="1" max="99" placeholder="Ej: 10"></div></div><div style="display:flex;gap:10px;flex-wrap:wrap;"><button class="sm-btn green" onclick="smInvitarJugador(\''+esc(miTorneo.id)+'\',\''+esc(miEquipo.id)+'\')">📩 Crear invitación + WhatsApp al jugador</button></div><p class="subtitle" style="font-size:12px;">Al crearla, el jugador recibe una notificación en la app y tú puedes mandarle el enlace por WhatsApp. Solo cuando él pulsa ✅ Confirmar aparece en el equipo. Si pulsa ❌ Rechazar, no aparece y todo sigue normal.</p>';
+      html+='<h3 style="margin-top:18px;">👑 Designar nuevo capitán</h3><p class="subtitle">El nuevo capitán recibe notificación y el organizador también. El capitán anterior deja de poder editar el equipo.</p><label>Elige al nuevo capitán (debe estar en el equipo)</label><select id="smNuevoCapitan" class="sm-select">'+(miEquipo.jugadores||[]).map(function(j){return '<option value="'+esc(j.id)+'">'+esc(j.nombre)+' — '+(j.posicion||'')+'</option>';}).join('')+'</select><button class="sm-btn gold" onclick="smDesignarNuevoCapitan(\''+esc(miTorneo.id)+'\',\''+esc(miEquipo.id)+'\')">👑 Designar como nuevo capitán</button>';
+      // Lista de invitaciones pendientes de este equipo para el capitan
+      var invEq=invitaciones.filter(function(inv){return String(inv.equipoId)===String(miEquipo.id)&&String(inv.torneoId)===String(miTorneo.id);});
+      if(invEq.length){ html+='<h3 style="margin-top:18px;">📩 Invitaciones de este equipo</h3>'+invEq.map(function(inv){return '<div class="sm-team-row"><div><b>'+esc(inv.jugadorNombre)+'</b> • '+esc(inv.estado)+' • WhatsApp '+esc(inv.jugadorWhatsapp)+'</div><div><button class="sm-btn green" style="padding:8px 12px;font-size:13px;" onclick="smReenviarInvitacionWhats(\''+inv.id+'\')">💬 Reenviar por WhatsApp</button></div></div>';}).join(''); }
+    }
+    html+='</div>';
+  } else {
+    html+='<div class="sm-card"><h3>⚽ Mi equipo</h3><p class="subtitle">Si eres Capitán o Jugador, elige tu torneo y equipo para verlo y gestionarlo. Si eres Organizador, gestiona desde Torneos como siempre.</p><label>Torneo</label><select id="smMiTorneo" class="sm-select" onchange="smCambiarMiTorneo(this.value)">'+torneosOptions(s.torneoId)+'</select><label>Equipo</label><select id="smMiEquipoSel" class="sm-select">'+equiposOptions(s.torneoId,s.equipoId)+'</select><button class="sm-btn blue" onclick="smGuardarMiEquipo()">Ver mi equipo</button></div>';
+  }
+  // Agentes libres
+  html+='<div class="sm-card" id="smLibresBox"><h3>🆓 Agentes libres — Buscar equipo</h3><p class="subtitle">Jugador sin equipo: publícate como agente libre. Capitán / Organizador: ve quién busca equipo. Jugador: también puedes escribirle por WhatsApp al capitán de un equipo con menos de 14 jugadores.</p>';
+  if(s.rol==='jugador'){ html+='<div class="sm-grid"><div><label>Tu nombre</label><input id="smLibreNombre" class="sm-input" value="'+esc(s.nombre||'')+'"></div><div><label>Tu WhatsApp</label><input id="smLibreWhats" class="sm-input" value="'+esc(s.whatsapp||'')+'"></div><div><label>Posición</label><input id="smLibrePos" class="sm-input" placeholder="Ej: Medio"></div><div><label>Mensaje</label><input id="smLibreMsg" class="sm-input" placeholder="Ej: Busco equipo, juego fines de semana"></div></div><button class="sm-btn green" onclick="smPublicarAgenteLibre()">🆓 Publicarme como agente libre</button>'; }
+  html+='<h3 style="margin-top:16px;">Agentes libres publicados</h3>'+(libres.length?libres.slice(0,20).map(function(l){return '<div class="sm-team-row"><div><b>'+esc(l.nombre)+'</b> — '+(l.posicion||'Jugador')+'<br><span style="font-size:13px;">'+esc(l.mensaje||'')+' • '+new Date(l.fecha).toLocaleDateString()+'</span></div><div><button class="sm-btn green" style="padding:8px 12px;font-size:13px;" onclick="smHablarAgenteLibre(\''+esc(l.whatsapp)+'\',\''+esc(l.nombre)+'\')">💬 WhatsApp</button></div></div>';}).join(''):'<p class="subtitle">Aún no hay agentes libres publicados.</p>');
+  html+='<h3 style="margin-top:16px;">Equipos con lugar (menos de 14 jugadores)</h3>';
+  var conLugar=[]; getTorneos().forEach(function(t){ (t.equipos||[]).forEach(function(e){ if(contar(e)<14) conLugar.push({t:t,e:e}); }); });
+  html+=(conLugar.length?conLugar.slice(0,30).map(function(o){return '<div class="sm-team-row"><div><b>'+esc(o.e.nombre)+'</b> — '+esc(o.t.nombre)+'<br><span style="font-size:13px;">Capitán '+esc(o.e.capitan||'—')+' • '+contar(o.e)+'/14 jugadores</span></div><div><button class="sm-btn green" style="padding:8px 12px;font-size:13px;" onclick="smHablarCapitan(\''+esc(o.t.id)+'\',\''+esc(o.e.id)+'\')">💬 Escribir al capitán</button></div></div>';}).join(''):'<p class="subtitle">Todos los equipos están llenos (14/14).</p>');
+  html+='</div>';
+  // Organizador - resumen
+  if(s.rol==='organizador'){ html+='<div class="sm-card"><h3>👑 Panel Organizador (resumen rápido)</h3><p>Tienes todas las funciones originales: crear torneo, abrir/cerrar inscripciones, aprobar inscripciones, editar partidos, reportes, respaldo y GitHub. Este panel solo te resume lo nuevo.</p><ul style="font-size:14px;line-height:1.7;"><li>Invitaciones de jugadores pendientes: <b>'+invitaciones.filter(function(i){return i.estado==="pendiente";}).length+'</b></li><li>Agentes libres: <b>'+libres.length+'</b></li><li>Notificaciones sin leer: <b>'+misNotifs().filter(function(n){return !n.leida;}).length+'</b></li></ul><button class="sm-btn blue" onclick="smIrAInscripciones()">📝 Ir a Inscripciones originales</button></div>'; }
+  sec.innerHTML=html;
+}
+
+/* ---------- ACCIONES GLOBALES ---------- */
+window.smAbrirModalRol=function(){ var s=getSesion(); var n=document.getElementById('smRolNombre'); var w=document.getElementById('smRolWhats'); var r=document.getElementById('smRolSelect'); if(n) n.value=s.nombre||''; if(w) w.value=s.whatsapp||''; if(r) r.value=s.rol||'visitante'; var m=document.getElementById('smModalRol'); if(m) m.classList.add('open'); };
+window.smCerrarModalRol=function(){ var m=document.getElementById('smModalRol'); if(m) m.classList.remove('open'); };
+window.smGuardarSesion=function(){ var n=(document.getElementById('smRolNombre')||{}).value||''; var w=(document.getElementById('smRolWhats')||{}).value||''; var r=(document.getElementById('smRolSelect')||{}).value||'visitante'; n=n.trim(); w=w.trim(); if(r!=='visitante'&&(!n||!w)){ alert('Para Capitán / Jugador / Organizador escribe tu nombre y WhatsApp.'); return; } var s=getSesion(); s.nombre=n; s.whatsapp=w; s.rol=r; setSesion(s); smCerrarModalRol(); alert('Listo. Entraste como '+r+(n?' ('+n+')':'')); };
+window.smSalirSesion=function(){ setSesion({rol:'visitante',nombre:'',whatsapp:'',torneoId:'',equipoId:''}); };
+window.smToggleNotif=function(){ var p=document.getElementById('smNotifPanel'); if(!p) return; var open=p.classList.contains('open'); if(!open) renderNotifPanel(); p.classList.toggle('open'); };
+window.smMarcarNotifLeida=function(id){ var l=leer(LS_NOTIF,[]); var it=l.find(function(x){return x.id===id;}); if(it) it.leida=true; guardar(LS_NOTIF,l); renderNotifPanel(); renderRoleBar(); };
+window.smIrAInscripciones=function(){ try{ if(typeof mostrarPagina==='function') mostrarPagina('inscripciones'); }catch(e){} };
+window.smCambiarTorneoInvitar=function(tid){ var s=getSesion(); s.torneoId=tid; guardar(LS_SESION,s); renderMiEquipo(); };
+window.smCambiarMiTorneo=function(tid){ var s=getSesion(); s.torneoId=tid; s.equipoId=''; guardar(LS_SESION,s); var sel=document.getElementById('smMiEquipoSel'); if(sel) sel.innerHTML=equiposOptions(tid,''); };
+window.smGuardarMiEquipo=function(){ var tid=(document.getElementById('smMiTorneo')||{}).value||''; var eid=(document.getElementById('smMiEquipoSel')||{}).value||''; if(!tid||!eid){ alert('Elige torneo y equipo.'); return; } var s=getSesion(); s.torneoId=tid; s.equipoId=eid; setSesion(s); };
+window.smCopiarEnlaceInvitacion=function(){ var v=(document.getElementById('smEnlaceInv')||{}).value||''; if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(v).then(function(){alert('Enlace copiado. Compártelo donde quieras.');}).catch(function(){ prompt('Copia el enlace:',v); }); } else prompt('Copia el enlace:',v); };
+window.smCompartirInvitacionWhatsApp=function(){ var v=(document.getElementById('smEnlaceInv')||{}).value||''; var t=getTorneo((document.getElementById('smInvTorneo')||{}).value||''); var texto='🏆 ¡Te invito al torneo '+(t?t.nombre:'Sports Manager')+'! Inscríbete aquí: '+v+'\n\nSi quieres hablar con el Organizador, escríbele por WhatsApp.'; var org=whatsOrg(); if(!org){ alert('Primero configura el WhatsApp del organizador en Inscripciones (solo organizador). Mientras tanto, copia el enlace.'); smCopiarEnlaceInvitacion(); return; } window.open(waLink(org, 'Hola, quiero compartir este enlace de invitación: '+v), '_blank'); };
+window.smHablarOrganizador=function(msg){ var org=whatsOrg(); if(!org){ alert('El Organizador aún no configuró su WhatsApp en la sección Inscripciones. Pídele que lo guarde ahí para que este botón te lleve directo a su chat.'); try{ if(typeof mostrarPagina==='function') mostrarPagina('inscripciones'); }catch(e){} return; } window.open(waLink(org, msg||'Hola, quiero hablar contigo (Organizador).'), '_blank'); };
+window.smHablarCapitan=function(tid,eid){ var eq=getEquipo(tid,eid); var t=getTorneo(tid); if(!eq){alert('Equipo no encontrado.');return;} if(!eq.telefono){ alert('Este equipo aún no tiene WhatsApp de capitán registrado.'); return; } var s=getSesion(); var texto='Hola '+(eq.capitan||'Capitán')+', soy '+(s.nombre||'un jugador agente libre')+' y me interesa unirme a tu equipo '+(eq.nombre||'')+' del torneo '+(t?t.nombre:'')+'. ¿Tienen lugar? Tienen '+contar(eq)+'/14 jugadores.'; window.open(waLink(eq.telefono, texto),'_blank'); };
+window.smHablarAgenteLibre=function(whats,nombre){ if(!whats){alert('Sin WhatsApp.');return;} window.open(waLink(whats,'Hola '+nombre+', vi que estás como agente libre y te quiero invitar a mi equipo. ¿Te interesa?'),'_blank'); };
+window.smPublicarAgenteLibre=function(){ var s=getSesion(); var nombre=((document.getElementById('smLibreNombre')||{}).value||s.nombre||'').trim(); var whats=((document.getElementById('smLibreWhats')||{}).value||s.whatsapp||'').trim(); var pos=((document.getElementById('smLibrePos')||{}).value||'').trim(); var msg=((document.getElementById('smLibreMsg')||{}).value||'').trim(); if(!nombre||!whats){alert('Escribe nombre y WhatsApp.');return;} var l=leer(LS_LIBRES,[]); l.unshift({id:'libre_'+Date.now(),nombre:nombre,whatsapp:whats,posicion:pos,mensaje:msg,fecha:new Date().toISOString()}); guardar(LS_LIBRES,l); notificar({rol:'organizador'},'🆓 Nuevo agente libre', nombre+' se publicó como agente libre ('+(pos||'Jugador')+'). WhatsApp: '+whats); alert('Publicado como agente libre. Los capitanes te pueden escribir por WhatsApp.'); renderMiEquipo(); };
+window.smInvitarJugador=function(tid,eid){ var s=getSesion(); if(s.rol!=='capitan'&&s.rol!=='organizador'){ alert('Solo el Capitán de este equipo o el Organizador puede invitar jugadores.'); return; } var eq=getEquipo(tid,eid); var t=getTorneo(tid); if(!eq||!t){alert('Equipo no encontrado.');return;} if(contar(eq)>=14){ alert('Este equipo ya tiene 14 jugadores. No puedes invitar a más hasta que alguien salga.'); return; } var nombre=((document.getElementById('smJugNombre')||{}).value||'').trim(); var whats=((document.getElementById('smJugWhats')||{}).value||'').trim(); var pos=((document.getElementById('smJugPos')||{}).value||'').trim(); var num=((document.getElementById('smJugNum')||{}).value||'').trim(); if(!nombre||!whats){alert('Escribe nombre y WhatsApp del jugador.');return;} var inv={id:'inv_'+Date.now()+'_'+Math.floor(Math.random()*999),torneoId:String(tid),torneoNombre:t.nombre||'',equipoId:String(eid),equipoNombre:eq.nombre||'',jugadorNombre:nombre,jugadorWhatsapp:whats,posicion:pos,numero:num,capitanNombre:s.nombre||eq.capitan||'',capitanWhatsapp:s.whatsapp||eq.telefono||'',estado:'pendiente',fecha:new Date().toISOString()}; var l=leer(LS_INV,[]); l.unshift(inv); guardar(LS_INV,l); notificar({nombre:nombre,whatsapp:whats},'📩 Invitación a equipo','El capitán '+(inv.capitanNombre||'')+' te invitó al equipo '+eq.nombre+' ('+t.nombre+'). Entra a Mi Equipo y pulsa Confirmar o Rechazar.'); notificar({rol:'organizador'},'📩 Capitán invitó jugador', (s.nombre||'Capitán')+' invitó a '+nombre+' al equipo '+eq.nombre+'. Estado: pendiente.'); var enlace=location.origin+location.pathname+'?inv_jugador='+encodeURIComponent(inv.id)+'#miEquipo'; var texto='🏆 INVITACIÓN - SPORTS MANAGER\n\nHola '+nombre+', el capitán '+(inv.capitanNombre||'')+' te invitó al equipo '+eq.nombre+' del torneo '+t.nombre+'.\nPosición: '+(pos||'Jugador')+' • Número: '+(num||'—')+'\n\nConfirma o rechaza aquí: '+enlace+'\n\nSi confirmas, apareces en el equipo. Si rechazas, no apareces y todo sigue normal.'; if(confirm('Invitación creada. ¿Quieres enviarla ahora por WhatsApp a '+nombre+'?')) window.open(waLink(whats,texto),'_blank'); else { if(navigator.clipboard) navigator.clipboard.writeText(texto).catch(function(){}); alert('Invitación creada. Enlace copiado en portapapeles si tu navegador lo permite.'); } renderMiEquipo(); };
+window.smReenviarInvitacionWhats=function(invId){ var inv=leer(LS_INV,[]).find(function(x){return x.id===invId;}); if(!inv){alert('Invitación no encontrada.');return;} var enlace=location.origin+location.pathname+'?inv_jugador='+encodeURIComponent(inv.id)+'#miEquipo'; window.open(waLink(inv.jugadorWhatsapp,'Hola '+inv.jugadorNombre+', te reenvío tu invitación al equipo '+inv.equipoNombre+' ('+inv.torneoNombre+'). Confirma o rechaza aquí: '+enlace),'_blank'); };
+window.smConfirmarInvitacion=function(invId){ var l=leer(LS_INV,[]); var inv=l.find(function(x){return x.id===invId;}); if(!inv){alert('Invitación no encontrada.');return;} if(inv.estado!=='pendiente'){alert('Esta invitación ya está '+inv.estado+'.');return;} var eq=getEquipo(inv.torneoId,inv.equipoId); var t=getTorneo(inv.torneoId); if(!eq){alert('Equipo no encontrado.');return;} if(contar(eq)>=14){alert('El equipo ya está lleno (14/14). Pídele al capitán que libere un lugar.');return;} inv.estado='aceptada'; guardar(LS_INV,l); eq.jugadores=eq.jugadores||[]; eq.jugadores.push({id:'jug_'+Date.now(),nombre:inv.jugadorNombre,posicion:inv.posicion||'Jugador',numero:inv.numero?Number(inv.numero):(eq.jugadores.length+1),whatsapp:inv.jugadorWhatsapp,goles:0}); guardarBD(); notificar({nombre:inv.capitanNombre,whatsapp:inv.capitanWhatsapp},'✅ Jugador aceptó',''+inv.jugadorNombre+' aceptó unirse a '+eq.nombre+'. Ya aparece en el equipo.'); notificar({rol:'organizador'},'✅ Jugador aceptó',''+inv.jugadorNombre+' aceptó unirse a '+eq.nombre+' ('+(t?t.nombre:'')+').'); alert('✅ Confirmado. Ya apareces en '+eq.nombre+'.'); renderMiEquipo(); };
+window.smRechazarInvitacion=function(invId){ var l=leer(LS_INV,[]); var inv=l.find(function(x){return x.id===invId;}); if(!inv) return; if(!confirm('¿Rechazar la invitación a '+inv.equipoNombre+'? No aparecerás en el equipo.')) return; inv.estado='rechazada'; guardar(LS_INV,l); notificar({nombre:inv.capitanNombre,whatsapp:inv.capitanWhatsapp},'❌ Jugador rechazó',''+inv.jugadorNombre+' rechazó unirse a '+inv.equipoNombre+'.'); notificar({rol:'organizador'},'❌ Jugador rechazó',''+inv.jugadorNombre+' rechazó unirse a '+inv.equipoNombre+'.'); alert('Rechazada. No apareces en el equipo y todo sigue normal.'); renderMiEquipo(); };
+window.smSalirDeEquipo=function(tid,eid){ var s=getSesion(); if(!confirm('¿Salir del equipo? Dejarás de aparecer en la lista y el capitán será notificado.')) return; var eq=getEquipo(tid,eid); if(!eq) return; var antes=contar(eq); eq.jugadores=(eq.jugadores||[]).filter(function(j){ return !(String(j.nombre||'').toLowerCase()===String(s.nombre||'').toLowerCase()); }); if(contar(eq)===antes){ alert('No te encontré en ese equipo con tu nombre actual. Cambia tu rol con el mismo nombre con el que te registraron.'); return; } guardarBD(); notificar({nombre:eq.capitan,whatsapp:eq.telefono},'🚪 Jugador salió del equipo',(s.nombre||'Un jugador')+' salió del equipo '+eq.nombre+'. Ahora tienen '+contar(eq)+'/14.'); notificar({rol:'organizador'},'🚪 Jugador salió del equipo',(s.nombre||'Un jugador')+' salió de '+eq.nombre+'.'); alert('Saliste del equipo.'); renderMiEquipo(); };
+window.smEliminarJugadorDeEquipo=function(tid,eid,jid){ var s=getSesion(); if(s.rol!=='capitan'&&s.rol!=='organizador'){alert('Solo el Capitán de este equipo o el Organizador puede quitar jugadores.');return;} var eq=getEquipo(tid,eid); if(!eq) return; var j=(eq.jugadores||[]).find(function(x){return String(x.id)===String(jid);}); if(!j) return; if(!confirm('¿Quitar a '+j.nombre+' del equipo?')) return; eq.jugadores=eq.jugadores.filter(function(x){return String(x.id)!==String(jid);}); guardarBD(); notificar({nombre:j.nombre,whatsapp:j.whatsapp||''},'🚪 Te quitaron del equipo','El capitán te quitó del equipo '+eq.nombre+'.'); notificar({rol:'organizador'},'🚪 Jugador quitado', (s.nombre||'Capitán')+' quitó a '+j.nombre+' de '+eq.nombre+'.'); renderMiEquipo(); };
+window.smDesignarNuevoCapitan=function(tid,eid){ var s=getSesion(); if(s.rol!=='capitan'&&s.rol!=='organizador'){alert('Solo el Capitán actual o el Organizador puede designar nuevo capitán.');return;} var eq=getEquipo(tid,eid); var t=getTorneo(tid); if(!eq) return; var sel=document.getElementById('smNuevoCapitan'); if(!sel||!sel.value){alert('Elige al nuevo capitán.');return;} var nuevo=(eq.jugadores||[]).find(function(j){return String(j.id)===String(sel.value);}); if(!nuevo){alert('Jugador no encontrado.');return;} var anteriorCapitan=eq.capitan||''; if(!confirm('¿Designar a '+nuevo.nombre+' como nuevo capitán de '+eq.nombre+'? Tú dejarás de ser capitán.')) return; eq.capitan=nuevo.nombre; if(nuevo.whatsapp) eq.telefono=nuevo.whatsapp; guardarBD(); notificar({nombre:nuevo.nombre,whatsapp:nuevo.whatsapp||''},'👑 ¡Eres el nuevo capitán!','Fuiste designado capitán de '+eq.nombre+' ('+(t?t.nombre:'')+'). Ahora puedes invitar jugadores, quitarlos y designar otro capitán.'); notificar({rol:'organizador'},'👑 Cambio de capitán','En '+eq.nombre+' el nuevo capitán es '+nuevo.nombre+'. Anterior: '+(anteriorCapitan||'—')+'.'); var org=whatsOrg(); if(org && confirm('¿Quieres avisarle al Organizador por WhatsApp del cambio de capitán?')) window.open(waLink(org,'👑 Cambio de capitán en '+eq.nombre+' ('+(t?t.nombre:'')+'). Nuevo capitán: '+nuevo.nombre+'. Anterior: '+(anteriorCapitan||'—')+'.'),'_blank'); if(s.rol==='capitan'){ var ns=getSesion(); ns.rol='jugador'; setSesion(ns); } renderMiEquipo(); alert('Nuevo capitán: '+nuevo.nombre); };
+
+/* ---------- ENVOLVER INSCRIPCION ORIGINAL PARA WHATSAPP ---------- */
+function envolverInscripcion(){
+  try{
+    if(typeof window.enviarInscripcion==='function' && !window.enviarInscripcion.__smV2){
+      var orig=window.enviarInscripcion;
+      var nueva=function(){
+        var antes=leer('sports_inscripciones_v1',[]).length;
+        var r=orig.apply(this,arguments);
+        setTimeout(function(){
+          try{
+            var lista=[]; try{ if(typeof obtenerInscripcionesGuardadas==='function') lista=obtenerInscripcionesGuardadas(); }catch(e){ lista=leer('sports_inscripciones_v1',[]); }
+            if(!lista.length) return; var insc=lista[0]; if(!insc) return;
+            var org=whatsOrg(); var msg=''; try{ if(typeof construirMensajeInscripcion==='function') msg=construirMensajeInscripcion(insc); }catch(e){ msg='Inscripción: '+insc.equipo+' - '+insc.capitan; }
+            var res=document.getElementById('inscResultado'); if(res){ res.innerHTML+='<div class="sm-card" style="margin-top:12px;"><b>💬 Siguiente paso: avísale al Organizador por WhatsApp</b><p style="font-size:13px;">Tu inscripción ya quedó guardada. Pulsa el botón para que le llegue directo al Organizador.</p><div style="display:flex;gap:10px;flex-wrap:wrap;"><button class="sm-btn green" onclick="smEnviarInscripcionWhats(\''+esc(insc.id)+'\')">💬 Enviar por WhatsApp al Organizador</button><button class="sm-btn" onclick="smHablarOrganizador(\'Hola, acabo de inscribir a mi equipo '+esc(insc.equipo)+'\')">💬 Hablar con el Organizador</button></div></div>'; }
+            if(org && confirm('✅ Inscripción guardada. ¿Quieres enviarla ahora por WhatsApp al Organizador?')){ window.open(waLink(org,msg),'_blank'); }
+            else if(!org){ alert('Inscripción guardada. Para que te llegue por WhatsApp, el Organizador debe guardar su número en Inscripciones > WhatsApp del organizador.'); }
+          }catch(e){}
+        },250);
+        return r;
+      }; nueva.__smV2=true; window.enviarInscripcion=nueva;
+    }
+  }catch(e){}
+}
+window.smEnviarInscripcionWhats=function(inscId){ var lista=[]; try{ lista=obtenerInscripcionesGuardadas(); }catch(e){ lista=leer('sports_inscripciones_v1',[]); } var insc=lista.find(function(x){return String(x.id)===String(inscId);})||lista[0]; if(!insc){alert('Inscripción no encontrada.');return;} var org=whatsOrg(); if(!org){alert('El Organizador aún no configuró su WhatsApp.');return;} var msg=''; try{ msg=construirMensajeInscripcion(insc); }catch(e){ msg='Inscripción: '+insc.equipo; } window.open(waLink(org,msg),'_blank'); };
+
+/* ---------- GUARDIA DE PERMISOS: CAPITAN / JUGADOR NO TOCAN EL TORNEO ---------- */
+function guardiaTorneo(fnName){
+  try{
+    if(typeof window[fnName]==='function' && !window[fnName].__smGuard){
+      var orig=window[fnName]; var nw=function(){ var s=getSesion(); if(s.rol==='capitan'||s.rol==='jugador'){ alert('Solo el Organizador puede cambiar el torneo. Tú como '+(s.rol==='capitan'?'Capitán':'Jugador')+' solo puedes cambiar TU equipo en “Mi Equipo”.'); return; } return orig.apply(this,arguments); }; nw.__smGuard=true; window[fnName]=nw;
+    }
+  }catch(e){}
+}
+
+/* ---------- INICIO ---------- */
+crearBase();
+renderRoleBar(); renderMiEquipo(); envolverInscripcion();
+['crearNuevoTorneo','eliminarTorneoCompleto','finalizarTorneoActual','guardarEdicionTorneo','aprobarInscripcion'].forEach(function(n){ if(n==='aprobarInscripcion') return; guardiaTorneo(n); });
+try{
+  var params=new URLSearchParams(location.search); var invJ=params.get('inv_jugador'); if(invJ){ setTimeout(function(){ try{ if(typeof mostrarPagina==='function') mostrarPagina('miEquipo'); }catch(e){} var el=document.getElementById('miEquipo'); if(el) el.scrollIntoView(); alert('Tienes una invitación de jugador pendiente. Entra con tu nombre + WhatsApp en “Cambiar rol” y la verás en “Mis invitaciones”.'); },600); }
+  if(params.get('invitacion')){ setTimeout(function(){ try{ if(typeof mostrarPagina==='function') mostrarPagina('inscripciones'); }catch(e){} },600); }
+}catch(e){}
+// Si el usuario ya era organizador en la app original, reflejarlo en la barra
+try{ if(typeof esOrganizador==='function' && esOrganizador()){ var s0=getSesion(); if(s0.rol==='visitante'){ /* no forzar, el usuario elige su rol */ } } }catch(e){}
+}catch(err){ console.warn('SM v2 no pudo iniciar', err); }
+})();
+
+</script>
+<script src="./auto-sync-v3.js"></script>
 </body>
 
 </html>
