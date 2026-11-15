@@ -1,0 +1,7 @@
+{
+  "version": "3.0.0",
+  "repo": "sports-manager-web",
+  "nombre": "Sports Manager",
+  "actualizado": "2026-11-15",
+  "nota": "Cuando publiques algo nuevo, sube este numero a 3.0.1, 3.0.2... Todos los celulares y PC se actualizan solos al abrir, sin reinstalar."
+}
