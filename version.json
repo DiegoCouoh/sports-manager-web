@@ -1,8 +1,0 @@
-{
-  "version": "4.0.0",
-  "repo": "sports-manager-web",
-  "nombre": "Sports Manager",
-  "actualizado": "2026-11-15",
-  "modo": "En vivo cada 1 segundo por WiFi. Sin roles: todos son jugadores, quien envia inscripcion es Capitan, Organizador unico con clave.",
-  "nota": "Cuando publiques algo nuevo, la app sube sola live-tick.json. No tienes que tocar version.json a mano."
-}
