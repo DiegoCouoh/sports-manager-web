@@ -1,0 +1,6 @@
+{
+  "version": "v6",
+  "name": "Sports Manager Web v6",
+  "updated": "2026-11-15",
+  "notes": "Sin banner. Sync MQTT sin token, sin configurar. Fusion por union, nunca borra torneos vacios. SW network-first."
+}
