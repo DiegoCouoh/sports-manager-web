@@ -1,0 +1,6 @@
+{
+  "version": "v7",
+  "name": "Sports Manager Web v7",
+  "updated": "2026-11-15",
+  "notes": "Completo. Movil optimizado. Sync 4 canales: MQTT + Trystero P2P + GitHub + pestañas + codigo WhatsApp. Sin banner. Barra inferior Ingresar + Hablar + Actualizar."
+}
