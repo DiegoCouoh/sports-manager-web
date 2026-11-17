@@ -1,0 +1,6 @@
+{
+  "version": "v9",
+  "name": "Sports Manager Web v9",
+  "updated": "2026-11-16",
+  "notes": "Fix login Jugador duplicado, quitar Categoria/Numero/Jugadores/Mensaje de inscripcion equipo, tabs Inscribir equipo / Inscribirse como Jugador, Agente Libre con solicitud al capitan que acepta/rechaza, Registrar jugador guarda WhatsApp+clave."
+}
