@@ -1,0 +1,6 @@
+{
+  "version": "v10",
+  "name": "Caribe Sports v10",
+  "updated": "2026-11-17",
+  "notes": "Login único Ingresar (Organizador Usuario+Contraseña, Jugador Nombre+Teléfono guardado siempre), barra inferior eliminada a menú lateral, rebrand Caribe Sports con logo en todos los dispositivos, fix pantalla negra (construirMensaje + enviarInscripcion), Jugador ve todo menos opciones Organizador, puede inscribir equipo o buscar como Agente Libre."
+}
