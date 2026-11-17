@@ -1,0 +1,6 @@
+{
+  "version": "v11",
+  "name": "Caribe Sports v11",
+  "date": "2026-11-17",
+  "changes": "Capitán NO es Organizador (sesiones excluyentes), Agentes Libres con foto/teléfono/posición/nombre, Eliminar Agente Libre solo Organizador, Invitaciones por enlace con texto Caribe League, Nombre completo 2+ nombres obligatorio, Salir/sacar a Agentes Libres, Inscripción única por capitán+torneo hasta rechazo"
+}
