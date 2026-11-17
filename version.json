@@ -1,0 +1,6 @@
+{
+  "version": "v8",
+  "name": "Sports Manager Web v8",
+  "updated": "2026-11-15",
+  "notes": "Multicuentas: Organizador (toda la pagina) + Capitan/Jugador (solo su equipo). Al aprobar, equipo + cuenta Capitan creados automaticamente."
+}
