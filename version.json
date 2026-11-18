@@ -1,6 +1,0 @@
-{
-  "version": "v15",
-  "name": "Caribe Sports v15 - Cargar Imágenes eliminado + Palmarés siempre visible + Candado Organizador",
-  "date": "2026-11-17",
-  "changes": "Cargar Imágenes eliminado por completo. Palmarés visible siempre para todos incluso visitantes. Solo Diego Couoh + Diego.Couoh011 ve botones de Organizador. Fix: aplicarModoLectura ya no borra solo-organizador. Incluye v14 + v13 + v12."
-}
