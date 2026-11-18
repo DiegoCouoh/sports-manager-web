@@ -1,0 +1,6 @@
+{
+  "version": "v13",
+  "name": "Caribe Sports v13 - Archivo Completo + Enlazado Para Siempre",
+  "date": "2026-11-17",
+  "changes": "Archivo unico con TODOS los datos adentro (torneos, equipos, jugadores, partidos, noticias, biblioteca, cuentas, inscripciones, solicitudes, agentes libres, WhatsApp, config). Se actualiza solo cada segundo sobre la marcha en el navegador enlazado para siempre: localStorage + IndexedDB + BroadcastChannel + Archivo enlazado (File System Access) + Descargar copia. Incluye fix v12: capitan siempre es jugador, para inscribir hay que estar registrado como Jugador."
+}
