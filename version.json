@@ -1,6 +1,0 @@
-{
-  "version": "v14",
-  "name": "Caribe Sports v14 - Nuevo formato Inscripciones",
-  "date": "2026-11-17",
-  "changes": "Inscripciones es solo un punto. Botones funcionales: Inscribir equipo / Inscribirse como Jugador. Mi Equipo justo entre Inscribirse como Jugador y Agentes Libres. Al clic en Inscribir Equipo solo muestra formato de equipo, al clic en Inscribirse como Jugador solo formato de jugador. Sin tabs duplicados. Incluye v13 completo + enlazado para siempre + v12 capitan es jugador."
-}
